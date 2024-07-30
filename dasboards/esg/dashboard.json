@@ -439,7 +439,7 @@
           "url_options": {
             "body_content_type": "text/plain",
             "body_graphql_query": "query getGoalState($item: String!) {\r\n  runtime {\r\n    environmentEnvironmentalGoal(\r\n      searchFilter: {\r\n        type: ATTRIBUTE_FILTER\r\n        searchTerm: $item\r\n        attributeNames: [\"name\"]\r\n      }\r\n    ) {\r\n      items {\r\n        name\r\n        goalText\r\n        goalStatus\r\n      }\r\n    }\r\n  }\r\n}\r\n",
-            "body_graphql_variables": "{\"item\": \"CarbonFootprint\" }",
+            "body_graphql_variables": "{\"item\": \"EnergyConsumption\" }",
             "body_type": "graphql",
             "data": "query getGoalState($item: String!) {\r\n  runtime {\r\n    environmentEnvironmentalGoal(\r\n      searchFilter: {\r\n        type: ATTRIBUTE_FILTER\r\n        searchTerm: $item\r\n        attributeNames: [\"name\"]\r\n      }\r\n    ) {\r\n      items {\r\n        name\r\n        goalText\r\n        goalStatus\r\n      }\r\n    }\r\n  }\r\n}\r\n",
             "method": "POST"
@@ -543,7 +543,7 @@
           "url_options": {
             "body_content_type": "text/plain",
             "body_graphql_query": "query getGoalState($item: String!) {\r\n  runtime {\r\n    environmentEnvironmentalGoal(\r\n      searchFilter: {\r\n        type: ATTRIBUTE_FILTER\r\n        searchTerm: $item\r\n        attributeNames: [\"name\"]\r\n      }\r\n    ) {\r\n      items {\r\n        name\r\n        goalText\r\n        goalStatus\r\n      }\r\n    }\r\n  }\r\n}\r\n",
-            "body_graphql_variables": "{\"item\": \"CarbonFootprint\" }",
+            "body_graphql_variables": "{\"item\": \"EnergyConsumption\" }",
             "body_type": "graphql",
             "data": "query getGoalState($item: String!) {\r\n  runtime {\r\n    environmentEnvironmentalGoal(\r\n      searchFilter: {\r\n        type: ATTRIBUTE_FILTER\r\n        searchTerm: $item\r\n        attributeNames: [\"name\"]\r\n      }\r\n    ) {\r\n      items {\r\n        name\r\n        goalText\r\n        goalStatus\r\n      }\r\n    }\r\n  }\r\n}\r\n",
             "method": "POST"
