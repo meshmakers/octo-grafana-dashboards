@@ -1,0 +1,1154 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INFINITY",
+      "label": "Infinity",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "yesoreyeram-infinity-datasource",
+      "pluginName": "Infinity"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Aktuelle Werte",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 16000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "dark-yellow",
+                "value": 3000
+              },
+              {
+                "color": "dark-green",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 9,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "/^Leistung$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "peakPower",
+              "text": "Leistung",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.runtime.industryEnergyPhotovoltaicModule.items",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\n  runtime {\n    industryEnergyPhotovoltaicModule {\n      items {\n        rtId\n        peakPower\n      }\n    }\n  }\n}",
+            "body_type": "graphql",
+            "data": "",
+            "headers": [],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Produktion",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": -10000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 10,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "power",
+              "text": "Leistung",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.runtime.industryEnergyEnergyMeter.items.0",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\n  runtime {\n    industryEnergyEnergyMeter(rtId:\"5fc8fda18b2fc75f925e21c1\") {\n      items {\n        rtId\n        power\n      }\n    }\n  }\n}\n",
+            "body_type": "graphql",
+            "data": "",
+            "headers": [],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Netzeinspeisung/Bezug",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 15000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1500
+              },
+              {
+                "color": "red",
+                "value": 1700
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "power",
+              "text": "Leistung",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.runtime.industryEnergyEnergyMeter.items.0",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\n  runtime {\n    industryEnergyEnergyMeter(rtId:\"5fc8fda18b2fc75f925e21c2\") {\n      items {\n        rtId\n        power\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{ }",
+            "body_type": "graphql",
+            "data": "",
+            "headers": [],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Gebäudeverbrauch",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": -10000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "id": 11,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Leistung$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "power",
+              "text": "Leistung",
+              "type": "number"
+            },
+            {
+              "selector": "soC",
+              "text": "SoC",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.runtime.industryEnergyBattery.items.0",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\n  runtime {\n    industryEnergyBattery(rtId:\"5fc8fda18b2fc75f925e21ae\") {\n      items {\n        rtId\n        power\n        soC\n      }\n    }\n  }\n}\n",
+            "body_type": "graphql",
+            "data": "",
+            "headers": [],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Batterie",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "dark-orange",
+                "value": 40
+              },
+              {
+                "color": "dark-yellow",
+                "value": 60
+              },
+              {
+                "color": "dark-green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "id": 12,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^SoC$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "power",
+              "text": "Leistung",
+              "type": "number"
+            },
+            {
+              "selector": "soC",
+              "text": "SoC",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.runtime.industryEnergyBattery.items.0",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\n  runtime {\n    industryEnergyBattery(rtId:\"5fc8fda18b2fc75f925e21ae\") {\n      items {\n        rtId\n        power\n        soC\n      }\n    }\n  }\n}\n",
+            "body_type": "graphql",
+            "data": "",
+            "headers": [],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Batterie Ladestatus",
+      "type": "gauge"
+    },
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 14,
+      "title": "Historisch Produktion",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 0,
+        "y": 9
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timeStamp",
+              "text": "",
+              "type": "timestamp"
+            },
+            {
+              "selector": "peakPower",
+              "text": "",
+              "type": "number"
+            },
+            {
+              "selector": "rtId",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "computed_columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filterExpression": "",
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.streamData.industryEnergyPhotovoltaicModule.items",
+          "source": "url",
+          "summarizeAlias": "",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\r\n  streamData {\r\n    industryEnergyPhotovoltaicModule(\r\n      arg: {\r\n        limit: 100\r\n        from: \"${__from:date}\"\r\n        to: \"${__to:date}\"\r\n        queryMode: DOWNSAMPLING\r\n      }\r\n    ) {\r\n      items {\r\n        peakPower(arg: {aggregationType: AVG})\r\n        timeStamp\r\n        rtId\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Historisch Produktion",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "multi"
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 0,
+        "y": 16
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timeStamp",
+              "text": "",
+              "type": "timestamp"
+            },
+            {
+              "selector": "power",
+              "text": "",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.streamData.industryEnergyEnergyMeter.items",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\r\n  streamData {\r\n    industryEnergyEnergyMeter(\r\n      arg: {\r\n        limit: 100\r\n        from: \"${__from:date}\"\r\n        to: \"${__to:date}\"\r\n        queryMode: DOWNSAMPLING\r\n      },\r\n      rtId:\"5fc8fda18b2fc75f925e21c1\"\r\n    ) {\r\n      items {\r\n        power(arg: {aggregationType: AVG})\r\n        timeStamp\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Historisch Netzeinspeisung/Bezug",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 0,
+        "y": 23
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timeStamp",
+              "text": "",
+              "type": "timestamp"
+            },
+            {
+              "selector": "power",
+              "text": "",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.streamData.industryEnergyEnergyMeter.items",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\r\n  streamData {\r\n    industryEnergyEnergyMeter(\r\n      arg: {\r\n        limit: 100\r\n        from: \"${__from:date}\"\r\n        to: \"${__to:date}\"\r\n        queryMode: DOWNSAMPLING\r\n      },\r\n      rtId:\"5fc8fda18b2fc75f925e21c2\"\r\n    ) {\r\n      items {\r\n        power(arg: {aggregationType: AVG})\r\n        timeStamp\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Historisch Gebäudeverbrauch",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 0,
+        "y": 30
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timeStamp",
+              "text": "",
+              "type": "timestamp"
+            },
+            {
+              "selector": "power",
+              "text": "",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.streamData.industryEnergyBattery.items",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\r\n  streamData {\r\n    industryEnergyBattery(\r\n      arg: {\r\n        limit: 100\r\n        from: \"${__from:date}\"\r\n        to: \"${__to:date}\"\r\n        queryMode: DOWNSAMPLING\r\n      },\r\n      rtId:\"5fc8fda18b2fc75f925e21ae\"\r\n    ) {\r\n      items {\r\n        power(arg: {aggregationType: AVG})\r\n        timeStamp\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Historisch Batterie",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 0,
+        "y": 37
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timeStamp",
+              "text": "",
+              "type": "timestamp"
+            },
+            {
+              "selector": "soC",
+              "text": "",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "data.streamData.industryEnergyBattery.items",
+          "source": "url",
+          "type": "graphql",
+          "url": "${graphqlurl}",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query {\r\n  streamData {\r\n    industryEnergyBattery(\r\n      arg: {\r\n        limit: 100\r\n        from: \"${__from:date}\"\r\n        to: \"${__to:date}\"\r\n        queryMode: INTERPOLATION\r\n      },\r\n      rtId:\"5fc8fda18b2fc75f925e21ae\"\r\n    ) {\r\n      items {\r\n        soC\r\n        timeStamp\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Historisch SoC",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "hide": 2,
+        "name": "graphqlurl",
+        "query": "http://octo-mesh-asset-rep-services.octo.svc.cluster.local/tenants/meshtest/graphQl",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "meshmakers PV Dashboard",
+  "uid": "fd39afe0-8521-4e7d-8e62-3d372e7c5774",
+  "version": 19,
+  "weekStart": ""
+}
